@@ -1,18 +1,18 @@
 package com.neptune.manager.mapper.sys;
 
 import com.neptune.manager.domain.bean.sys.SysRole;
-import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
+/**
+ * The interface Sys role mapper.
+ */
 public interface SysRoleMapper {
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(SysRole record);
-
-    int insertSelective(SysRole record);
-
-    SysRole selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(SysRole record);
-
-    int updateByPrimaryKey(SysRole record);
+    /**
+     * Select by uid list.
+     *
+     * @param uid the uid
+     * @return the list
+     */
+    List<SysRole> selectByUid(Integer uid);
 }

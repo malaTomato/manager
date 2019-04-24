@@ -1,18 +1,18 @@
 package com.neptune.manager.mapper.sys;
 
-import com.neptune.manager.domain.bean.sys.SysPermission;
-import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
+import java.util.Set;
 
+/**
+ * The interface Sys permission mapper.
+ */
 public interface SysPermissionMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(SysPermission record);
-
-    int insertSelective(SysPermission record);
-
-    SysPermission selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(SysPermission record);
-
-    int updateByPrimaryKey(SysPermission record);
+    /**
+     * Select by role id set.
+     *
+     * @param list the list
+     * @return the set
+     */
+    Set<String> selectByRoleId(List<Integer> list);
 }
