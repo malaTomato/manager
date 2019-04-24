@@ -3,7 +3,6 @@ package com.neptune.manager.mapper.sys;
 import com.neptune.manager.domain.bean.sys.SysPermission;
 import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
 public interface SysPermissionMapper {
     int deleteByPrimaryKey(Integer id);
 

@@ -1,5 +1,6 @@
 package com.neptune.manager;
 
+import com.alibaba.fastjson.JSONObject;
 import com.neptune.manager.mapper.sys.SysUserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +18,7 @@ public class ManagerApplicationTests {
     @Test
     public void contextLoads() {
 
-        System.out.println(sysUserMapper.selectByPrimaryKey(1));
+        System.out.println(JSONObject.toJSONString(sysUserMapper.selectByPrimaryKey(1)));
     }
 
 }

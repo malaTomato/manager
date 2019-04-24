@@ -2,7 +2,6 @@ package com.neptune.manager.mapper.sys;
 
 import com.neptune.manager.domain.bean.sys.SysUser;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface SysUserMapper {
@@ -12,7 +11,7 @@ public interface SysUserMapper {
 
     int insertSelective(SysUser record);
 
-    SysUser selectByPrimaryKey(@Param("id") Integer id);
+    SysUser selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(SysUser record);
 
