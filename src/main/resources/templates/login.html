@@ -6,7 +6,8 @@
 </head>
 <body>
     <div>
-        <form th:action="@{/index}" method="post">
+        <p th:text="${msg}"></p>
+        <form action="" method="post">
             <p>账号:<input type="text" name="username"></p>
             <p>密码:<input  type="password" name="password"></p>
             <input type="submit">
