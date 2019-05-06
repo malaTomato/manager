@@ -1,5 +1,6 @@
 package com.neptune.manager.service.sys;
 
+import com.neptune.manager.common.Result;
 import com.neptune.manager.domain.bean.sys.SysPermission;
 import com.neptune.manager.domain.bean.sys.SysRole;
 import com.neptune.manager.domain.bean.sys.SysUser;
@@ -43,6 +44,11 @@ public class SysUserService {
 
     public Set<String> findPermissionByRoleList(List<SysRole> list){
         return sysPermissionMapper.selectByRoleId(list.parallelStream().map(SysRole::getId).collect(Collectors.toList()));
+    }
+
+    public Result<SysUser> addSysUser(SysUser sysUser){
+
+        return new Result<>();
     }
 
 }
