@@ -60,7 +60,6 @@ public class MyShiroRealm extends AuthorizingRealm {
                 sysUser,
                 //密码
                 sysUser.getPassword(),
-                //salt=username+salt
                 ByteSource.Util.bytes(sysUser.getSalt()),
                 //realm name
                 getName()

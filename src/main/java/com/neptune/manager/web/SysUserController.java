@@ -1,6 +1,7 @@
 package com.neptune.manager.web;
 
 import com.alibaba.fastjson.JSONObject;
+import com.neptune.manager.common.ServiceException;
 import com.neptune.manager.domain.bean.sys.SysUser;
 import com.neptune.manager.service.sys.SysUserService;
 import org.apache.shiro.SecurityUtils;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,6 +21,7 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author xiongwu
@@ -50,11 +53,11 @@ public class SysUserController {
         String msg = "";
         if (exception != null) {
             if (UnknownAccountException.class.getName().equals(exception)) {
-                System.out.println("UnknownAccountException -- > 账号不存在：");
-                msg = "UnknownAccountException -- > 账号不存在：";
+                System.out.println("UnknownAccountException -- > 账号不存在");
+                msg = "UnknownAccountException -- > 账号不存在";
             } else if (IncorrectCredentialsException.class.getName().equals(exception)) {
-                System.out.println("IncorrectCredentialsException -- > 密码不正确：");
-                msg = "IncorrectCredentialsException -- > 密码不正确：";
+                System.out.println("IncorrectCredentialsException -- > 密码不正确");
+                msg = "IncorrectCredentialsException -- > 密码不正确";
             } else if ("kaptchaValidateFailed".equals(exception)) {
                 System.out.println("kaptchaValidateFailed -- > 验证码错误");
                 msg = "kaptchaValidateFailed -- > 验证码错误";
@@ -70,13 +73,18 @@ public class SysUserController {
 
     @RequestMapping("/userInfoAdd")
     @RequiresPermissions("userInfo:add")
-    public String userInfoAdd(@Valid @RequestBody SysUser sysUser){
+    public String userInfoAdd(@Valid @RequestBody SysUser sysUser, BindingResult bindingResult){
         LOG.info("-->>userInfoAdd<<--");
         LOG.info(JSONObject.toJSONString(SecurityUtils.getSubject().getPrincipals()));
-
+        if(bindingResult.hasErrors()){
+            throw new ServiceException(1,"参数错误");
+        }
+        String salt = UUID.randomUUID().toString();
+        sysUser.setSalt(salt);
+//        sysUser.setPassword();
         sysUserService.addSysUser(sysUser).get();
 
-        return "/userInfoAdd";
+        return "/index";
     }
 
 
