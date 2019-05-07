@@ -1,12 +1,19 @@
 package com.neptune.manager.common;
 
+import lombok.Data;
+
 import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
  * @author xiongwu
  **/
+@Data
 public class Result<T> {
+
+    private Integer code;
+    private String msg;
+
 
     private T data;
 

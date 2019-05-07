@@ -1,4 +1,4 @@
-package com.neptune.manager.common;
+package com.neptune.manager.common.exception;
 
 import lombok.Data;
 

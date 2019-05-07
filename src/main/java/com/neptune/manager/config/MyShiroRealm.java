@@ -80,7 +80,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         //拿取到认证后的用户
         SysUser sysUser = (SysUser) principalCollection.getPrimaryPrincipal();
         //获取用户对应角色
-        List<SysRole> roleList = sysUserService.findRoleByUid(sysUser.getUid());
+        List<SysRole> roleList = sysUserService.findRoleByUid(sysUser.getId());
         if(CollectionUtils.isEmpty(roleList)){
             return null;
         }

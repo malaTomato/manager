@@ -1,6 +1,5 @@
 package com.neptune.manager;
 
-import com.alibaba.fastjson.JSONObject;
 import com.neptune.manager.mapper.sys.SysUserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,13 +11,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class ManagerApplicationTests {
 
-    @Autowired
-    private SysUserMapper sysUserMapper;
-
-    @Test
-    public void contextLoads() {
-
-        System.out.println(JSONObject.toJSONString(sysUserMapper.selectByPrimaryKey(1)));
-    }
+//    @Autowired
+//    private SysUserMapper sysUserMapper;
+//
+//    @Test
+//    public void contextLoads() {
+//
+////        System.out.println(JSONObject.toJSONString(sysUserMapper.selectByPrimaryKey(1)));
+//    }
 
 }

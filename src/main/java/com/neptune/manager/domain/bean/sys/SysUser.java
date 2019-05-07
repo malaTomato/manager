@@ -7,8 +7,6 @@ import java.util.Date;
 @Data
 public class SysUser {
     private Integer id;
-
-    private Integer uid;
     @NotNull(message = "用户名为空")
     private String username;
     @NotNull(message = "密码为空")

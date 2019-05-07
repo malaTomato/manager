@@ -1,7 +1,6 @@
 package com.neptune.manager.web;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neptune.manager.common.ServiceException;
 import com.neptune.manager.domain.bean.sys.SysUser;
 import com.neptune.manager.service.sys.SysUserService;
 import org.apache.shiro.SecurityUtils;
@@ -11,17 +10,18 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author xiongwu
@@ -36,9 +36,12 @@ public class SysUserController {
 
     @RequestMapping({"/","/index"})
     public String index(){
-
-
         return"/index";
+    }
+
+    @RequestMapping({"/userInfoAddPage"})
+    public String userInfoAddPage(){
+        return"/userInfoAdd";
     }
 
     @RequestMapping("/login")
@@ -70,20 +73,13 @@ public class SysUserController {
         return "/login";
     }
 
-
-    @RequestMapping("/userInfoAdd")
+    @RequestMapping(value = "/userInfoAdd",method = RequestMethod.POST
+            ,consumes = "application/x-www-form-urlencoded;charset=UTF-8")
     @RequiresPermissions("userInfo:add")
-    public String userInfoAdd(@Valid @RequestBody SysUser sysUser, BindingResult bindingResult){
+    public String userInfoAdd(@Valid SysUser sysUser){
         LOG.info("-->>userInfoAdd<<--");
         LOG.info(JSONObject.toJSONString(SecurityUtils.getSubject().getPrincipals()));
-        if(bindingResult.hasErrors()){
-            throw new ServiceException(1,"参数错误");
-        }
-        String salt = UUID.randomUUID().toString();
-        sysUser.setSalt(salt);
-//        sysUser.setPassword();
         sysUserService.addSysUser(sysUser).get();
-
         return "/index";
     }
 
