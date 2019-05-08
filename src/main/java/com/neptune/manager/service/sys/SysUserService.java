@@ -13,6 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.Selector;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -53,11 +58,11 @@ public class SysUserService {
 
         SysUser oldUser = sysUserMapper.selectByUsername(sysUser.getUsername());
         if(oldUser != null){
-            throw new ServiceException(3,"用户名不能为空");
+            throw new ServiceException(3,"用户名已经被占用");
         }
 
         String salt = UUID.randomUUID().toString().replace("-", "");
-        String password = sysUser.getPassword()+salt;
+        String password = salt + sysUser.getPassword();
         sysUser.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
         sysUser.setSalt(salt);
         sysUser.setStatus(1);
@@ -67,4 +72,27 @@ public class SysUserService {
         return new Result<>(true);
     }
 
+
+    public static void main(String[] args) {
+
+        FileInputStream fis = null; // Path of Input text file
+        try {
+            fis = new FileInputStream("D:\\file-read.txt");
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ReadableByteChannel rbc = fis.getChannel();
+
+
+        try {
+            Selector selector = Selector.open();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }
